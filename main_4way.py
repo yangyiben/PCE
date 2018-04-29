@@ -30,7 +30,7 @@ parser.add_argument('--dev', type=str, default= "test_data" ,
 
 
 parser.add_argument('--embtype', type=str, default="word2vec",
-                    help='embedding size')
+                    help='embedding type, word2vec, glove or lstm')
 
 parser.add_argument('--emb', type=int, default=300,
                     help='embedding size')
@@ -45,10 +45,10 @@ parser.add_argument('--decay', type=float, default=0,
 parser.add_argument('--relation', type=str, default="all",
                     help='test which relation(property)' )
 
-parser.add_argument('--train_all', type=bool, default=True,
+parser.add_argument('--train_all', type=str, default="yes",
                     help='whether train all the properties')
 
-parser.add_argument('--zero', type=bool, default=False,
+parser.add_argument('--zero', type=str, default="no",
                     help='whether perform zero shot learning to the given relation(property)')
 
 
@@ -97,9 +97,9 @@ if args.relation == "all":
 
 else:
     train_ids, dev_ids, redev_ids, test_ids, retest_ids = corpus.get_relation(args.relation)
-    if args.train_all:
+    if args.train_all == "yes":
         train_ids = corpus.train
-    if args.zero:
+    if args.zero == "yes":
         train_ids, dev_ids, redev_ids, test_ids, retest_ids = corpus.get_zero(args.relation)
 
 
